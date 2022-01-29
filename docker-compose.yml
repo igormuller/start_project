@@ -1,0 +1,24 @@
+version: '3'
+services:
+
+  container_app:
+    container_name: container-app
+    build: ./
+    #    restart: always
+    volumes:
+      - ./src:/var/www
+#    environment:
+#      - "XDEBUG_CONFIG=client_host=localhost client_port=9003 mode=debug start_with_request=1 idekey=PHPSTORM discover_client_host=on"
+#      - "XDEBUG_MODE=debug"
+#      - "PHP_IDE_CONFIG=serverName=xdebug-docker"
+
+  container_nginx:
+    container_name: container-nginx
+    build: ./nginx
+    #    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - container_app
